@@ -10,18 +10,18 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 /**
- * myprint - uses write to print to standard output
+ * print - uses write to print to standard output
  * @str: string to be printed
  */
-void myprint(string str)
+void print(string str)
 {
 	write(STDOUT_FILENO, str, _strlen(str));
 }
 /**
- * print_arr - Print an array of strings.
+ * arr_print - Print an array of strings.
  * @arr: The array to be printed.
  */
-void print_arr(string *arr)
+void arr_print(string *arr)
 {
 	int index;
 
@@ -32,28 +32,28 @@ void print_arr(string *arr)
 	}
 	for (index = 0; arr[index] != NULL; ++index)
 	{
-		myprint(arr[index]);
+		print(arr[index]);
 		_putchar('\n');
 	}
 }
 /**
- * print_list - Print all the elements of a list_t linked list.
- * @head: A pointer to the linked list.
+ * print_lists - Print all the elements of a lists_t linked lists.
+ * @first: A pointer to the linked lists.
  *
- * Return: The number of elements in the linked list.
+ * Return: The number of elements in the linked lists.
  */
-size_t print_list(list_t *head)
+size_t print_lists(lists_t *first)
 {
 	size_t length;
 
 	length = 0;
-	if (head == NULL)
+	if (first == NULL)
 		return (0);
-	while (head != NULL)
+	while (first != NULL)
 	{
-		myprint(head->str);
+		print(first->str);
 		_putchar('\n');
-		head = head->next;
+		first = first->next;
 		length++;
 	}
 	return (length);

@@ -2,18 +2,18 @@
 /**
  * _getenv - Retrieve environment var without using the "getenv" function.
  * @name: The name of the environment variable.
- * @header: A pointer to the list of environment variables.
+ * @header: A pointer to the lists of environment variables.
  *
  * Return: A pointer to the string containing specified environment variable
  * NULL if it is not found.
  */
-string _getenv(string name, list_t **header)
+string _getenv(string name, lists_t **header)
 {
-	list_t *temp;
+	lists_t *temp;
 	int length, index;
 
 	temp = *header;
-	length = list_len(temp);
+	length = lists_len(temp);
 	if (!header || !temp || !name)
 		return (NULL);
 	index = 0;
@@ -30,16 +30,16 @@ string _getenv(string name, list_t **header)
  * _setenv - Add or modify an environment variable with a specified value.
  * @name: The name of the variable to be added or modified.
  * @value: The value to be assigned to the variable.
- * @header: A pointer to the list of environment variables.
+ * @header: A pointer to the lists of environment variables.
  *
- * Return: A pointer to the head of the modified environment list or NULL
+ * Return: A pointer to the first of the modified environment lists or NULL
  * if operation failed.
  */
-int _setenv(string name, string value, list_t **header)
+int _setenv(string name, string value, lists_t **header)
 {
 	string ptr;
 	string new_ptr;
-	list_t *ret_ptr;
+	lists_t *ret_ptr;
 
 	new_ptr = _var_string(name, value);
 	if (new_ptr == NULL)
@@ -63,7 +63,7 @@ int _setenv(string name, string value, list_t **header)
 		return (0);
 	}
 
-	ret_ptr = _get_node(header, ptr);
+	ret_ptr = get_node(header, ptr);
 	free(ret_ptr->str);
 	ret_ptr->str = new_ptr;
 	return (0);
@@ -73,16 +73,16 @@ int _setenv(string name, string value, list_t **header)
  *             the environment, the function succeeds, and the
  *	       environment remains unchanged.
  * @name: The name of the environment variable to be removed.
- * @header: A pointer to the list of environment variables.
+ * @header: A pointer to the lists of environment variables.
  *
  * Return: Always 0 on success, or 1 on error.
  */
-int _unsetenv(string name, list_t **header)
+int _unsetenv(string name, lists_t **header)
 {
 	string equal;
 	string str_ptr;
 	int deleted;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
 	equal = _strchr(name, '=');
@@ -101,19 +101,19 @@ int _unsetenv(string name, list_t **header)
 	return (deleted);
 }
 /**
- * _delete - Delete a node with a specified string in a list_t.
- * @head: A pointer to the head pointer of the linked list.
+ * _delete - Delete a node with a specified string in a lists_t.
+ * @first: A pointer to the first pointer of the linked lists.
  * @str: A pointer to the string of the node to be deleted.
  *
  * Return: 0 on success, or 1 on failure.
  */
-int _delete(list_t **head, string str)
+int _delete(lists_t **first, string str)
 {
-	list_t *temp;
-	list_t *removeNode;
+	lists_t *temp;
+	lists_t *removeNode;
 
-	temp = *head;
-	if (temp == NULL || *head == NULL)
+	temp = *first;
+	if (temp == NULL || *first == NULL)
 	{
 		return (1);
 	}
@@ -121,7 +121,7 @@ int _delete(list_t **head, string str)
 
 	if (_strcmp(temp->str, str) == 0)
 	{
-		*head = temp->next;
+		*first = temp->next;
 		free(temp->str);
 		free(temp);
 		return (0);

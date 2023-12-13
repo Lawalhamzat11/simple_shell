@@ -5,16 +5,16 @@
  *
  * @buff: Pointer to the buffer for user input.
  * @line: Pointer to the current line of input.
- * @header: Pointer to the environment list.
+ * @header: Pointer to the environment lists.
  *
  * This function reads user input and stores it in 'buff' until 'exit' Ctrl+D.
  * Return: 0 on success or 1 if 'realloc' fails.
  */
-int cmd_loop(string buff, string line, list_t **header)
+int cmd_loop(string buff, string line, lists_t **header)
 {
 	int chars_read, oldlen, val = 0;
 	string *token;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
 	for (;;)

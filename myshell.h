@@ -17,7 +17,7 @@
   */
 typedef char *string;
 /**
- * struct customs_in - list of customs
+ * struct customs_in - lists of customs
  * @cmd: command
  * @func: The function
  */
@@ -28,29 +28,29 @@ typedef struct customs_in
 } customs_t;
 
 /**
- * struct list_s - Defines a singly linked list
+ * struct lists_s - Defines a singly linked lists
  * @str: A pointer to a dynamically allocated string
  * @length: The length of the string
  * @next: A pointer to the next node in t
  */
-typedef struct list_s
+typedef struct lists_s
 {
 	string str;
 	unsigned int length;
-	struct list_s *next;
-} list_t;
+	struct lists_s *next;
+} lists_t;
 extern string *environ;
 
-size_t list_len(list_t *head);
-list_t *_addNode_begin(list_t **head, string str);
-list_t *add_node_end(list_t **head, string str);
-void free_list(list_t *head);
-list_t *_get_node(list_t **head, string str);
+size_t lists_len(lists_t *first);
+lists_t *addnode_begin(lists_t **first, string str);
+lists_t *add_node_end(lists_t **first, string str);
+void free_lists(lists_t *first);
+lists_t *get_node(lists_t **first, string str);
 
 int _putchar(char c);
-void myprint(string str);
-void print_arr(string *arr);
-size_t print_list(list_t *head);
+void print(string str);
+void arr_print(string *arr);
+size_t print_lists(lists_t *first);
 
 int _strlen(string s);
 int _strncmp(string s1, string s2, int n);
@@ -59,7 +59,7 @@ string _strcpy(string dest, string src);
 string _strcat(string dest, string src);
 
 int _strcmp(string s1, string s2);
-void sign_handle(int signal);
+void sign_hand(int signal);
 string _strchr(string str, char c);
 int length_char(string str, char c);
 int _atoi(string s);
@@ -69,14 +69,14 @@ int wordlen(string s, char delim);
 string *_strtok(string str, char delim);
 
 int arr_size(string *arr);
-list_t *arr_to_list(string *arr);
-string *list_to_arr(list_t **head);
+lists_t *arr_to_lists(string *arr);
+string *lists_to_arr(lists_t **first);
 void free_arr(string *arr);
 
-string _getenv(string name, list_t **header);
-int _setenv(string name, string value, list_t **header);
-int _unsetenv(string name, list_t **header);
-int _delete(list_t **head, string string);
+string _getenv(string name, lists_t **header);
+int _setenv(string name, string value, lists_t **header);
+int _unsetenv(string name, lists_t **header);
+int _delete(lists_t **first, string string);
 string _var_string(string name, string value);
 
 int processline(string input, int size);
@@ -85,17 +85,17 @@ void clear_buff(string buff);
 string _memcpy(string dest, string src, int n);
 void *_realloc(void *ptr, unsigned int old, unsigned int new_size);
 
-int cmd_loop(string buff, string line, list_t **header);
+int cmd_loop(string buff, string line, lists_t **header);
 
-string *path_dirs(list_t **header);
-string cmd_path(string str, list_t **header);
-int run_command(string *line, list_t **header);
+string *path_dirs(lists_t **header);
+string cmd_path(string str, lists_t **header);
+int run_command(string *line, lists_t **header);
 
-int custom_commands(string *input, list_t **header);
+int custom_commands(string *input, lists_t **header);
 int exit_cmd(string *line);
-int print_env(string *line, list_t **header);
-int _set_env(string *line, list_t **header);
-int un_set_env(string *line, list_t **header);
+int print_env(string *line, lists_t **header);
+int _set_env(string *line, lists_t **header);
+int un_set_env(string *line, lists_t **header);
 
 
 #endif

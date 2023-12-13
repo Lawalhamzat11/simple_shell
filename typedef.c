@@ -1,54 +1,54 @@
 #include "myshell.h"
 /**
- * list_len - returns the number of elements in a linked list_t list
- * @head: linked List
+ * lists_len - returns the number of elements in a linked lists_t lists
+ * @first: linked lists
  * Return: number of elements
  */
-size_t list_len(list_t *head)
+size_t lists_len(lists_t *first)
 {
 	size_t length;
 
 	length = 0;
-	while (head != NULL)
+	while (first != NULL)
 	{
 		length++;
-		head = head->next;
+		first = first->next;
 	}
 	return (length);
 }
 /**
- * _addNode_begin - adds a new node at the beginning of a list_t list
- * @head: first node in the list
- * @str: second node in the list
+ * addnode_begin - adds a new node at the beginning of a lists_t lists
+ * @first: first node in the lists
+ * @str: second node in the lists
  * Return: the address of the new element, or NULL if it failed
  */
-list_t *_addNode_begin(list_t **head, string str)
+lists_t *addnode_begin(lists_t **first, string str)
 {
-	list_t *new;
+	lists_t *new;
 
-	new = malloc(sizeof(list_t));
+	new = malloc(sizeof(lists_t));
 	if (new == NULL)
 		return (NULL);
 	new->str = _strdup(str);
 	if (new->str == NULL)
 		return (NULL);
 	new->length = _strlen(str);
-	new->next = *head;
-	*head = new;
-	return (*head);
+	new->next = *first;
+	*first = new;
+	return (*first);
 }
 /**
  * add_node_end - check the code for Holberton School students.
- * @head: pointer to first node in linked list
+ * @first: pointer to first node in linked lists
  * @str: data to be copied to string field of the node
  * Return: the address of the new element, or NULL if it failed
  */
-list_t *add_node_end(list_t **head, string str)
+lists_t *add_node_end(lists_t **first, string str)
 {
-	list_t *new;
-	list_t *tail;
+	lists_t *new;
+	lists_t *tail;
 
-	new = malloc(sizeof(list_t));
+	new = malloc(sizeof(lists_t));
 	if (new == NULL)
 		return (NULL);
 	new->str = _strdup(str);
@@ -56,12 +56,12 @@ list_t *add_node_end(list_t **head, string str)
 		return (NULL);
 	new->length = _strlen(str);
 	new->next = NULL;
-	if (*head == NULL)
+	if (*first == NULL)
 	{
-		*head = new;
+		*first = new;
 		return (new);
 	}
-		tail = *head;
+		tail = *first;
 		while (1)
 		{
 			if (tail->next == NULL)
@@ -74,36 +74,36 @@ list_t *add_node_end(list_t **head, string str)
 	return (new);
 }
 /**
- * free_list - frees a list_t list
- * @head: linked list to free
+ * free_lists - frees a lists_t lists
+ * @first: linked lists to free
  * Return: none
  */
-void free_list(list_t *head)
+void free_lists(lists_t *first)
 {
-	list_t *temp;
+	lists_t *temp;
 
 	while (1)
 	{
-		if (head == NULL)
+		if (first == NULL)
 			break;
-		temp = head;
-		head = temp->next;
+		temp = first;
+		first = temp->next;
 		free(temp->str);
 		free(temp);
 	}
 }
 /**
- * _get_node - returns the node with string str
- * @head: pointer to first node
+ * get_node - returns the node with string str
+ * @first: pointer to first node
  * @str: string to search for
  * Return: n-th node, if the node does not exist, return NULL
  */
-list_t *_get_node(list_t **head, string str)
+lists_t *get_node(lists_t **first, string str)
 {
-	list_t *temp;
+	lists_t *temp;
 
-	temp = *head;
-	while (head && temp)
+	temp = *first;
+	while (first && temp)
 	{
 		if (_strcmp(temp->str, str) == 0 && temp)
 			return (temp);

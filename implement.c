@@ -2,12 +2,12 @@
 /**
  * custom_commands - Check if a command is a built-in.
  * @input: Tokenized line from the command line.
- * @header: Pointer to the environment list.
+ * @header: Pointer to the environment lists.
  *
  * Return: 0 on success(if it's a built-in command)1 on error, -1 the command
  * is not found among built-in commands.
  */
-int custom_commands(string *input, list_t **header)
+int custom_commands(string *input, lists_t **header)
 {
 	customs_t builtins[] = {
 		{"exit", exit_cmd},
@@ -17,7 +17,7 @@ int custom_commands(string *input, list_t **header)
 		{NULL, NULL}
 	};
 	int index, val;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
 	if (!input)
@@ -56,7 +56,7 @@ int exit_cmd(string *line)
 	size = arr_size(line);
 	if (size > 2)
 	{
-		myprint("Invalid syntax: exit status\n");
+		print("Invalid syntax: exit status\n");
 		return (1);
 	}
 	if (size == 1)
@@ -71,43 +71,43 @@ int exit_cmd(string *line)
 /**
  * print_env - Print the current environment variables.
  * @line: Tokenized line from the command line (unused in this function).
- * @header: Pointer to the environment list.
+ * @header: Pointer to the environment lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int print_env(string *line, list_t **header)
+int print_env(string *line, lists_t **header)
 {
 	int size;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
 	size = arr_size(line);
 	if (size > 1)
 	{
-		myprint("Failed: Command syntax: env\n");
+		print("Failed: Command syntax: env\n");
 		return (1);
 	}
-	print_list(temp);
+	print_lists(temp);
 	return (0);
 }
 /**
  * _set_env - Initialize a new environment variable or modify an existing one.
  * @line: Tokenized line from the command line.
- * @header: Pointer to the environment list.
+ * @header: Pointer to the environment lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int _set_env(string *line, list_t **header)
+int _set_env(string *line, lists_t **header)
 {
 	int size;
 	int val;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
 	size = arr_size(line);
 	if (size != 3)
 	{
-		myprint("Failed: Command syntax: setenv VARIABLE VALUE\n");
+		print("Failed: Command syntax: setenv VARIABLE VALUE\n");
 		return (1);
 	}
 	val = _setenv(line[1], line[2], &temp);
@@ -116,20 +116,20 @@ int _set_env(string *line, list_t **header)
 /**
  * un_set_env - Deletes an environment variable.
  * @line: A tokenized command line input.
- * @header: A pointer to the environment variables list.
+ * @header: A pointer to the environment variables lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int un_set_env(string *line, list_t **header)
+int un_set_env(string *line, lists_t **header)
 {
 	int size, val;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
 	size = arr_size(line);
 	if (size != 2)
 	{
-		myprint("Failed: Command syntax: unsetenv VARIABLE\n");
+		print("Failed: Command syntax: unsetenv VARIABLE\n");
 		return (1);
 	}
 	val = _unsetenv(line[1], &temp);

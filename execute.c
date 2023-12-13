@@ -1,19 +1,19 @@
 #include "myshell.h"
 /**
  * path_dirs - Create an array of pointers for all directories in the PATH.
- * @header: Pointer to the environment list.
+ * @header: Pointer to the environment lists.
  *
  * Return: An array of pointers.
  */
-string *path_dirs(list_t **header);
-string *path_dirs(list_t **header)
+string *path_dirs(lists_t **header);
+string *path_dirs(lists_t **header)
 {
 	string ptr;
 	string name = "PATH";
 	string path_str;
 	char delim = ':';
 	string *dirs;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
 
@@ -31,16 +31,16 @@ string *path_dirs(list_t **header)
 /**
  * cmd_path - Check if a command is in the PATH and return its full path.
  * @str: The command to check.
- * @header: Pointer to the environment list.
+ * @header: Pointer to the environment lists.
  *
  * Return: The full path of the command if found, or NULL if not found.
  */
-string cmd_path(string str, list_t **header)
+string cmd_path(string str, lists_t **header)
 {
 	string *path_dir;
 	string cmd;
 	int index, j, cmdl, strl;
-	list_t *temp;
+	lists_t *temp;
 
 	for (j = 0; str[j] != '\0'; j++)
 	{
@@ -50,8 +50,8 @@ string cmd_path(string str, list_t **header)
 	}
 	if ((str[0] == '/' || str[0] == '.') && str[j] == '\0')
 	{
-		myprint(str);
-		myprint(": not found\n");
+		print(str);
+		print(": not found\n");
 		return (NULL);
 	}
 	temp = *header;
@@ -82,20 +82,20 @@ string cmd_path(string str, list_t **header)
 /**
  * run_command - Execute the command entered in the shell.
  * @token: Tokenized input line.
- * @header: Pointer to the environment list.
+ * @header: Pointer to the environment lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int run_command(string *token, list_t **header)
+int run_command(string *token, lists_t **header)
 {
 	pid_t child;
 	int status;
 	string *env_arr;
 	string cmd;
-	list_t *temp;
+	lists_t *temp;
 
 	temp = *header;
-	env_arr = list_to_arr(&temp);
+	env_arr = lists_to_arr(&temp);
 	if (env_arr == NULL)
 	{
 		perror("Insufficient Memory");

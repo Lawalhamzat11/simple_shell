@@ -19,7 +19,7 @@ int processline(string input, int size)
 		exit(-1);
 	}
 	if ((fd.st_mode & S_IFMT) != S_IFIFO)
-		myprint("<) ");
+		print("<) ");
 	for (index = 0; index < size - 1; index++)
 	{
 		val = read(STDIN_FILENO, (input + index), 1);

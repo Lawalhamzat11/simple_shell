@@ -17,46 +17,46 @@ int arr_size(string *arr)
 	return (index);
 }
 /**
- * arr_to_list - Converts an array of pointers to strings into a linked list.
+ * arr_to_lists - Converts an array of pointers to strings into a linked lists.
  * @arr: An array of pointers to strings.
  *
- * Return: A pointer to the head of the linked list.
+ * Return: A pointer to the first of the linked lists.
  */
-list_t *arr_to_list(string *arr)
+lists_t *arr_to_lists(string *arr)
 {
-	list_t *head;
-	list_t *new;
+	lists_t *first;
+	lists_t *new;
 	int index;
 
-	head = NULL;
+	first = NULL;
 	for (index = 0; arr[index] != NULL; index++)
 	{
-		new = add_node_end(&head, arr[index]);
+		new = add_node_end(&first, arr[index]);
 		if (new == NULL)
 		{
-			free_list(head);
+			free_lists(first);
 			return (NULL);
 		}
 	}
-	return (head);
+	return (first);
 }
 /**
- * list_to_arr - Converts a linked list to an array of pointers.
- * @head: The head pointer of the linked list.
+ * lists_to_arr - Converts a linked lists to an array of pointers.
+ * @first: The first pointer of the linked lists.
  *
  * Return: A pointer to an array of pointers.
 */
-string *list_to_arr(list_t **head)
+string *lists_to_arr(lists_t **first)
 {
 	int length, index;
-	list_t *temp;
+	lists_t *temp;
 	string *arr;
 
-	length = list_len(*head);
+	length = lists_len(*first);
 	arr = malloc(sizeof(string) * (length + 1));
 	if (arr == NULL)
 		return (NULL);
-	temp = *head;
+	temp = *first;
 	for (index = 0; index < length; index++)
 	{
 		arr[index] = temp->str;
