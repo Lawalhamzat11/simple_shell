@@ -7,7 +7,7 @@
  * @line: Pointer to the current line of input.
  * @firster: Pointer to the environment lists.
  *
- * This function reads user input and stores it in 'buffer' until 'exit' Ctrl+D.
+ * This function reads user input and stores it in 'buf until 'exit' Ctrl+D.
  * Return: 0 on success or 1 if 'realloc' fails.
  */
 int command_loop(strings buffer, strings line, lists_t **firster)
