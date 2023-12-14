@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "shell.h"
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print
@@ -11,9 +11,9 @@ int _putchar(char c)
 }
 /**
  * print - uses write to print to standard output
- * @str: string to be printed
+ * @str: strings to be printed
  */
-void print(string str)
+void print(strings str)
 {
 	write(STDOUT_FILENO, str, _strlen(str));
 }
@@ -21,7 +21,7 @@ void print(string str)
  * arr_print - Print an array of strings.
  * @arr: The array to be printed.
  */
-void arr_print(string *arr)
+void arr_print(strings *arr)
 {
 	int index;
 

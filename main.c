@@ -1,30 +1,30 @@
-#include "myshell.h"
+#include "shell.h"
 /**
  * main - Entry Point to Shell
  * Return: Always 0 on success
  */
 int main(void)
 {
-	string buff;
-	string line;
-	lists_t *header;
+	strings buffer;
+	strings line;
+	lists_t *firster;
 	int val;
 
 	line = NULL;
-	buff = malloc(sizeof(char) * BUFFSIZE);
-	if (buff == NULL)
+	buffer = malloc(sizeof(char) * BUFFERSIZE);
+	if (buffer == NULL)
 		return (1);
-	header = arr_to_lists(environ);
-	val = cmd_loop(buff, line, &header);
-	free_lists(header);
-	free(buff);
+	firster = arr_to_lists(environ);
+	val = command_loop(buffer, line, &firster);
+	free_lists(firster);
+	free(buffer);
 	return (val);
 }
 /**
  * sign_hand - Signal handler for handling a specific signal.
  *
  * This function is a signal handler designed to handle the specified signal.
- * prints the "<) " string to the standard output when invoked.
+ * prints the "<) " strings to the standard output when invoked.
  *
  * @signal: The signal number to be handled (unused in this implementation).
  */

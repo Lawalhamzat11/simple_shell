@@ -1,4 +1,4 @@
-#include "myshell.h"
+#include "shell.h"
 /**
  * lists_len - returns the number of elements in a linked lists_t lists
  * @first: linked lists
@@ -22,7 +22,7 @@ size_t lists_len(lists_t *first)
  * @str: second node in the lists
  * Return: the address of the new element, or NULL if it failed
  */
-lists_t *addnode_begin(lists_t **first, string str)
+lists_t *addnode_begin(lists_t **first, strings str)
 {
 	lists_t *new;
 
@@ -40,10 +40,10 @@ lists_t *addnode_begin(lists_t **first, string str)
 /**
  * add_node_end - check the code for Holberton School students.
  * @first: pointer to first node in linked lists
- * @str: data to be copied to string field of the node
+ * @str: data to be copied to strings field of the node
  * Return: the address of the new element, or NULL if it failed
  */
-lists_t *add_node_end(lists_t **first, string str)
+lists_t *add_node_end(lists_t **first, strings str)
 {
 	lists_t *new;
 	lists_t *tail;
@@ -93,12 +93,12 @@ void free_lists(lists_t *first)
 	}
 }
 /**
- * get_node - returns the node with string str
+ * get_node - returns the node with strings str
  * @first: pointer to first node
- * @str: string to search for
+ * @str: strings to search for
  * Return: n-th node, if the node does not exist, return NULL
  */
-lists_t *get_node(lists_t **first, string str)
+lists_t *get_node(lists_t **first, strings str)
 {
 	lists_t *temp;
 

@@ -1,16 +1,16 @@
-#include "myshell.h"
+#include "shell.h"
 /**
  * custom_commands - Check if a command is a built-in.
  * @input: Tokenized line from the command line.
- * @header: Pointer to the environment lists.
+ * @firster: Pointer to the environment lists.
  *
  * Return: 0 on success(if it's a built-in command)1 on error, -1 the command
  * is not found among built-in commands.
  */
-int custom_commands(string *input, lists_t **header)
+int custom_commands(strings *input, lists_t **firster)
 {
-	customs_t builtins[] = {
-		{"exit", exit_cmd},
+	made_t builtins[] = {
+		{"exit", exit_command},
 		{"env", print_env},
 		{"setenv", _set_env},
 		{"unsetenv", un_set_env},
@@ -19,23 +19,23 @@ int custom_commands(string *input, lists_t **header)
 	int index, val;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 	if (!input)
 	{
 		perror("custom_commands");
 		return (1);
 	}
 	index = 0;
-	while ((builtins + index)->cmd != NULL)
+	while ((builtins + index)->command != NULL)
 	{
-		if (_strcmp(input[0], (builtins + index)->cmd) == 0)
+		if (_strcmp(input[0], (builtins + index)->command) == 0)
 		{
 			if (_strcmp(input[0], "exit") == 0)
 			{
-				val = (builtins + index)->func(input);
+				val = (builtins + index)->fun(input);
 				return (val);
 			}
-			val = (builtins + index)->func(input, &temp);
+			val = (builtins + index)->fun(input, &temp);
 			return (val);
 		}
 		index++;
@@ -44,12 +44,12 @@ int custom_commands(string *input, lists_t **header)
 }
 
 /**
- * exit_cmd - Exit the shell with a given status.
+ * exit_command - Exit the shell with a given status.
  * @line: Tokenized line from the command line.
  *
  * Return: 0 on success or the specified status, 1 on error.
  */
-int exit_cmd(string *line)
+int exit_command(strings *line)
 {
 	int size, status;
 
@@ -71,16 +71,16 @@ int exit_cmd(string *line)
 /**
  * print_env - Print the current environment variables.
  * @line: Tokenized line from the command line (unused in this function).
- * @header: Pointer to the environment lists.
+ * @firster: Pointer to the environment lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int print_env(string *line, lists_t **header)
+int print_env(strings *line, lists_t **firster)
 {
 	int size;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 	size = arr_size(line);
 	if (size > 1)
 	{
@@ -93,17 +93,17 @@ int print_env(string *line, lists_t **header)
 /**
  * _set_env - Initialize a new environment variable or modify an existing one.
  * @line: Tokenized line from the command line.
- * @header: Pointer to the environment lists.
+ * @firster: Pointer to the environment lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int _set_env(string *line, lists_t **header)
+int _set_env(strings *line, lists_t **firster)
 {
 	int size;
 	int val;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 	size = arr_size(line);
 	if (size != 3)
 	{
@@ -116,16 +116,16 @@ int _set_env(string *line, lists_t **header)
 /**
  * un_set_env - Deletes an environment variable.
  * @line: A tokenized command line input.
- * @header: A pointer to the environment variables lists.
+ * @firster: A pointer to the environment variables lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int un_set_env(string *line, lists_t **header)
+int un_set_env(strings *line, lists_t **firster)
 {
 	int size, val;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 	size = arr_size(line);
 	if (size != 2)
 	{

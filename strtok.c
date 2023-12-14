@@ -1,11 +1,11 @@
-#include "myshell.h"
+#include "shell.h"
 /**
- * total_words - counts separate words in string
+ * word_count - counts separate words in strings
  * @str: pointer to s
  * @delim: delimiter
  * Return: number of words
  */
-int total_words(string str, char delim)
+int word_count(strings str, char delim)
 {
 	int index, count;
 
@@ -21,12 +21,12 @@ int total_words(string str, char delim)
 	return (count);
 }
 /**
- * wordlen - returns the lenght of a word
+ * word_len - returns the lenght of a word
  * @s: pointer to s
  * @delim: delimiter
  * Return: lenght
  */
-int wordlen(string s, char delim)
+int word_len(strings s, char delim)
 {
 	int c = 0; /* count  */
 
@@ -35,22 +35,22 @@ int wordlen(string s, char delim)
 	return (c);
 }
 /**
- * _strtok - splits a string into words
- * @str: string to break
+ * _strtok - splits a strings into words
+ * @str: strings to break
  * @delim: delimiter
  * Return: arr of strings(words)
  */
-string *_strtok(string str, char delim)
+strings *_strtok(strings str, char delim)
 {
 	int index, j, k, h, c, length;
-	string *words;
+	strings *words;
 
 	if (str == NULL || str[0] == '\0')
 		return (NULL);
-	c = total_words(str, delim);
+	c = word_count(str, delim);
 	if (c == 0)
 		return (NULL);
-	words = malloc(sizeof(string) * (c + 1));
+	words = malloc(sizeof(strings) * (c + 1));
 	if (words == NULL)
 		return (NULL);
 	index = 0;
@@ -64,7 +64,7 @@ string *_strtok(string str, char delim)
 			words[j] = NULL;
 			return (words);
 		}
-		words[j] = malloc(sizeof(char) * (wordlen(str + index, delim) + 1));
+		words[j] = malloc(sizeof(char) * (word_len(str + index, delim) + 1));
 		if (words[j] == NULL)
 		{
 			for (k = j - 1; k >= 0; k--)
@@ -72,7 +72,7 @@ string *_strtok(string str, char delim)
 			free(words);
 			return (NULL);
 		}
-		length = wordlen(str + index, delim);
+		length = word_len(str + index, delim);
 		for (h = 0; h < length && str[index] != '\0'; h++, index++)
 			words[j][h] = str[index];
 		words[j][h] = '\0';

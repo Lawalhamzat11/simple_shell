@@ -1,20 +1,20 @@
-#include "myshell.h"
+#include "shell.h"
 /**
  * _getenv - Retrieve environment var without using the "getenv" function.
  * @name: The name of the environment variable.
- * @header: A pointer to the lists of environment variables.
+ * @firster: A pointer to the lists of environment variables.
  *
- * Return: A pointer to the string containing specified environment variable
+ * Return: A pointer to the strings containing specified environment variable
  * NULL if it is not found.
  */
-string _getenv(string name, lists_t **header)
+strings _getenv(strings name, lists_t **firster)
 {
 	lists_t *temp;
 	int length, index;
 
-	temp = *header;
+	temp = *firster;
 	length = lists_len(temp);
-	if (!header || !temp || !name)
+	if (!firster || !temp || !name)
 		return (NULL);
 	index = 0;
 	while (index < length)
@@ -30,15 +30,15 @@ string _getenv(string name, lists_t **header)
  * _setenv - Add or modify an environment variable with a specified value.
  * @name: The name of the variable to be added or modified.
  * @value: The value to be assigned to the variable.
- * @header: A pointer to the lists of environment variables.
+ * @firster: A pointer to the lists of environment variables.
  *
  * Return: A pointer to the first of the modified environment lists or NULL
  * if operation failed.
  */
-int _setenv(string name, string value, lists_t **header)
+int _setenv(strings name, strings value, lists_t **firster)
 {
-	string ptr;
-	string new_ptr;
+	strings ptr;
+	strings new_ptr;
 	lists_t *ret_ptr;
 
 	new_ptr = _var_string(name, value);
@@ -47,12 +47,12 @@ int _setenv(string name, string value, lists_t **header)
 		perror("Insuffient memory");
 		return (1);
 	}
-	/* use _getenv(name) to get a pointer to string of variable */
-	ptr = _getenv(name, header);
+	/* use _getenv(name) to get a pointer to strings of variable */
+	ptr = _getenv(name, firster);
 	/* if variable not found add it */
 	if (ptr == NULL)
 	{
-		ret_ptr = add_node_end(header, new_ptr);
+		ret_ptr = add_node_end(firster, new_ptr);
 		if (ret_ptr == NULL)
 		{
 			free(new_ptr);
@@ -63,7 +63,7 @@ int _setenv(string name, string value, lists_t **header)
 		return (0);
 	}
 
-	ret_ptr = get_node(header, ptr);
+	ret_ptr = get_node(firster, ptr);
 	free(ret_ptr->str);
 	ret_ptr->str = new_ptr;
 	return (0);
@@ -73,18 +73,18 @@ int _setenv(string name, string value, lists_t **header)
  *             the environment, the function succeeds, and the
  *	       environment remains unchanged.
  * @name: The name of the environment variable to be removed.
- * @header: A pointer to the lists of environment variables.
+ * @firster: A pointer to the lists of environment variables.
  *
  * Return: Always 0 on success, or 1 on error.
  */
-int _unsetenv(string name, lists_t **header)
+int _unsetenv(strings name, lists_t **firster)
 {
-	string equal;
-	string str_ptr;
+	strings equal;
+	strings str_ptr;
 	int deleted;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 	equal = _strchr(name, '=');
 	if ((name == NULL) || ((name[0] == '\0') != 0) || (equal != NULL))
 	{
@@ -101,13 +101,13 @@ int _unsetenv(string name, lists_t **header)
 	return (deleted);
 }
 /**
- * _delete - Delete a node with a specified string in a lists_t.
+ * _delete - Delete a node with a specified strings in a lists_t.
  * @first: A pointer to the first pointer of the linked lists.
- * @str: A pointer to the string of the node to be deleted.
+ * @str: A pointer to the strings of the node to be deleted.
  *
  * Return: 0 on success, or 1 on failure.
  */
-int _delete(lists_t **first, string str)
+int _delete(lists_t **first, strings str)
 {
 	lists_t *temp;
 	lists_t *removeNode;
@@ -143,15 +143,15 @@ int _delete(lists_t **first, string str)
 	return (1);
 }
 /**
- * _var_string - Create a string in the format "name=value".
- * @name: The name to be included in the string.
- * @value: The value to be included in the string.
+ * _var_string - Create a strings in the format "name=value".
+ * @name: The name to be included in the strings.
+ * @value: The value to be included in the strings.
  *
- * Return: A new string in the format "name=value", or NULL on error.
+ * Return: A new strings in the format "name=value", or NULL on error.
  */
-string _var_string(string name, string value)
+strings _var_string(strings name, strings value)
 {
-	string new_ptr;
+	strings new_ptr;
 
 
 	if (((name[0] == '\0') != 0) || (_strchr(name, '=') != NULL))

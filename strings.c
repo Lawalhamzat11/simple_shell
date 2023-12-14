@@ -1,10 +1,10 @@
-#include "myshell.h"
+#include "shell.h"
 /**
- * _strlen - returns the lenght of a string
+ * _strlen - returns the lenght of a strings
  * @s: pointer to s
  * Return: 0 on success
  */
-int _strlen(string s)
+int _strlen(strings s)
 {
 	int count = 0;
 
@@ -17,13 +17,13 @@ int _strlen(string s)
 }
 /**
  * _strncmp - compares two strings for n amount of chars
- * @s1: pointer to string s1
- * @s2: pointer to string s2
+ * @s1: pointer to strings s1
+ * @s2: pointer to strings s2
  * @n: number of chars to compare
  * Return: 0 if identical
  *
  */
-int _strncmp(string s1, string s2, int n)
+int _strncmp(strings s1, strings s2, int n)
 {
 	int index, dif;
 
@@ -42,14 +42,14 @@ int _strncmp(string s1, string s2, int n)
 	return (0);
 }
 /**
- * _strcpy - copies the string with \0 to the buff
+ * _strcpy - copies the strings with \0 to the buffer
  * @dest: pointer to dest
- * @src: pointer to string
+ * @src: pointer to strings
  *
  * Return: the pointer to dest
  *
  */
-string _strcpy(string dest, string src)
+strings _strcpy(strings dest, strings src)
 {
 	int index;
 
@@ -63,14 +63,14 @@ string _strcpy(string dest, string src)
 	return (dest);
 }
 /**
- * _strcat - appends the src string to the dest string
- * @dest: pointer to dest string
- * @src: pointer to src string
+ * _strcat - appends the src strings to the dest strings
+ * @dest: pointer to dest strings
+ * @src: pointer to src strings
  *
- * Return: pointer to resulting string dest
+ * Return: pointer to resulting strings dest
  *
  */
-string _strcat(string dest, string src)
+strings _strcat(strings dest, strings src)
 {
 	int index, length;
 
@@ -84,14 +84,14 @@ string _strcat(string dest, string src)
 }
 /**
  * _strdup - returns a pointer to a newly allocated space in memory, which
-*           contains a copy of the string given as a parameter
-* @str: string to copy
-* Return: pointer to new string or NULL if str = NULL
+*           contains a copy of the strings given as a parameter
+* @str: strings to copy
+* Return: pointer to new strings or NULL if str = NULL
 */
-string _strdup(string str)
+strings _strdup(strings str)
 {
 	int index, length;
-	string new_str;
+	strings new_str;
 
 	if (str == NULL)
 		return (NULL);

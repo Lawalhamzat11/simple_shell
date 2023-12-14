@@ -1,13 +1,13 @@
-#include "myshell.h"
+#include "shell.h"
 /**
- * processline - Display >) wait for the user to enter a command,and print
+ * get_line - Display >) wait for the user to enter a command,and print
  *               it on the next line.
  * @input: Pointer to the buffer to store user input.
  * @size: Size of the buffer.
  *
  * Return: The number of characters read, or -1 if reallocation failed.
  */
-int processline(string input, int size)
+int get_line(strings input, int size)
 {
 	int index;
 	int val;
@@ -32,12 +32,12 @@ int processline(string input, int size)
 	return (index);
 }
 /**
- * exit_shell - Check if the user input is 'exit' to exit the shell.
+ * shell_exit - Check if the user input is 'exit' to exit the shell.
  * @token: Pointer to a tokenized input line.
  *
  * Return: 1 if the user wants to exit, 0 otherwise.
  */
-int exit_shell(string *token)
+int shell_exit(strings *token)
 {
 	int cmp, lend, lline, size;
 
@@ -50,15 +50,15 @@ int exit_shell(string *token)
 	return (0);
 }
 /**
- * clear_buff - Set all characters in 'buff' to 0.
- * @buff: Buffer to reset.
+ * clear_buff - Set all characters in 'buffer' to 0.
+ * @buffer: Buffer to reset.
  */
-void clear_buff(string buff)
+void clear_buff(strings buffer)
 {
 	int index;
 
-	for (index = 0; index < BUFFSIZE; index++)
-		buff[index] = 0;
+	for (index = 0; index < BUFFERSIZE; index++)
+		buffer[index] = 0;
 }
 /**
  * _memcpy - Copy a memory area.
@@ -68,7 +68,7 @@ void clear_buff(string buff)
  *
  * Return: A pointer to 'dest'.
  */
-string _memcpy(string dest, string src, int n)
+strings _memcpy(strings dest, strings src, int n)
 {
 	int index;
 
@@ -89,8 +89,8 @@ string _memcpy(string dest, string src, int n)
  */
 void *_realloc(void *ptr, unsigned int old, unsigned int new)
 {
-	string arr;
-	string helper;
+	strings arr;
+	strings helper;
 	unsigned int index;
 
 	if (old == new)

@@ -1,21 +1,21 @@
-#include "myshell.h"
+#include "shell.h"
 /**
- * path_dirs - Create an array of pointers for all directories in the PATH.
- * @header: Pointer to the environment lists.
+ * path_dir - Create an array of pointers for all directories in the PATH.
+ * @firster: Pointer to the environment lists.
  *
  * Return: An array of pointers.
  */
-string *path_dirs(lists_t **header);
-string *path_dirs(lists_t **header)
+strings *path_dir(lists_t **firster);
+strings *path_dir(lists_t **firster)
 {
-	string ptr;
-	string name = "PATH";
-	string path_str;
+	strings ptr;
+	strings name = "PATH";
+	strings path_str;
 	char delim = ':';
-	string *dirs;
+	strings *dirs;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 
 	ptr = _getenv(name, &temp);
 	path_str = _strdup(ptr + 5);
@@ -29,17 +29,17 @@ string *path_dirs(lists_t **header)
 	return (dirs);
 }
 /**
- * cmd_path - Check if a command is in the PATH and return its full path.
+ * command_path - Check if a command is in the PATH and return its full path.
  * @str: The command to check.
- * @header: Pointer to the environment lists.
+ * @firster: Pointer to the environment lists.
  *
  * Return: The full path of the command if found, or NULL if not found.
  */
-string cmd_path(string str, lists_t **header)
+strings command_path(strings str, lists_t **firster)
 {
-	string *path_dir;
-	string cmd;
-	int index, j, cmdl, strl;
+	strings *path_dirs;
+	strings command;
+	int index, j, commandl, strl;
 	lists_t *temp;
 
 	for (j = 0; str[j] != '\0'; j++)
@@ -54,47 +54,47 @@ string cmd_path(string str, lists_t **header)
 		print(": not found\n");
 		return (NULL);
 	}
-	temp = *header;
-	path_dir = path_dirs(&temp);
-	if (path_dir == NULL)
+	temp = *firster;
+	path_dirs = path_dir(&temp);
+	if (path_dirs == NULL)
 	{
 		perror("Out of memory");
 		return (NULL);
 	}
-	for (index = 0; path_dir[index] != NULL; index++)
+	for (index = 0; path_dirs[index] != NULL; index++)
 	{
-		cmd = _strdup(path_dir[index]);
-		cmdl = _strlen(cmd);
+		command = _strdup(path_dirs[index]);
+		commandl = _strlen(command);
 		strl = _strlen(str);
-		cmd = _realloc(cmd, cmdl, cmdl + strl + 2);
-		cmd = _strcpy(cmd, path_dir[index]);
-		cmd = _strcat(cmd, "/");
-		cmd = _strcat(cmd, str);
-		if (access(cmd, F_OK) == 0)
+		command = _realloc(command, commandl, commandl + strl + 2);
+		command = _strcpy(command, path_dirs[index]);
+		command = _strcat(command, "/");
+		command = _strcat(command, str);
+		if (access(command, F_OK) == 0)
 		{
-			free_arr(path_dir);
-			return (cmd);
+			free_arr(path_dirs);
+			return (command);
 		}
 	}
-	free_arr(path_dir);
+	free_arr(path_dirs);
 	return (str);
 }
 /**
  * run_command - Execute the command entered in the shell.
  * @token: Tokenized input line.
- * @header: Pointer to the environment lists.
+ * @firster: Pointer to the environment lists.
  *
  * Return: 0 on success, 1 on error.
  */
-int run_command(string *token, lists_t **header)
+int run_command(strings *token, lists_t **firster)
 {
 	pid_t child;
 	int status;
-	string *env_arr;
-	string cmd;
+	strings *env_arr;
+	strings command;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 	env_arr = lists_to_arr(&temp);
 	if (env_arr == NULL)
 	{
@@ -110,10 +110,10 @@ int run_command(string *token, lists_t **header)
 	}
 	if (child == 0)
 	{
-		cmd = cmd_path(token[0], &temp);
-		if (cmd == NULL)
+		command = command_path(token[0], &temp);
+		if (command == NULL)
 			exit(1);
-		if (execve(cmd, token, env_arr) == -1)
+		if (execve(command, token, env_arr) == -1)
 		{
 			perror("hsh");
 			exit(1);

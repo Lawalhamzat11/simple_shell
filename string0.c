@@ -1,11 +1,11 @@
-#include "myshell.h"
+#include "shell.h"
 /**
  * _strcmp - compares two strings
- * @s1: pointer to string s1
- * @s2: pointer to string s2
+ * @s1: pointer to strings s1
+ * @s2: pointer to strings s2
  * Return: difference in value of first char that's different
  */
-int _strcmp(string s1, string s2)
+int _strcmp(strings s1, strings s2)
 {
 	int index, dif;
 
@@ -24,29 +24,29 @@ int _strcmp(string s1, string s2)
 	return (dif);
 }
 /**
- * _strchr - locates character in string
- * @str: pointer to a string
+ * _strchr - locates character in strings
+ * @str: pointer to a strings
  * @c: char to find
  * Return: pointer to the matched character or NULL
  */
-string _strchr(string str, char c)
+strings _strchr(strings str, char c)
 {
 	int index;
 
 	for (index = 0; str[index] != '\0'; index++)
 	{
 		if (str[index] == c)
-			return ((string)(str + index));
+			return ((strings)(str + index));
 	}
 	return (NULL);
 }
 /**
- * length_char - finds string length to passed char
- * @str: pointer to a string
+ * length_char - finds strings length to passed char
+ * @str: pointer to a strings
  * @c: char to find
- * Return: length of string before char or 0 if not found
+ * Return: length of strings before char or 0 if not found
  */
-int length_char(string str, char c)
+int length_char(strings str, char c)
 {
 	int index;
 
@@ -58,11 +58,11 @@ int length_char(string str, char c)
 	return (index);
 }
 /**
- * _atoi - converts string to integer
- * @s: pointer to string to print
+ * _atoi - converts strings to integer
+ * @s: pointer to strings to print
  * Return: number or -1 on error
  */
-int _atoi(string s)
+int _atoi(strings s)
 {
 	int size, number, exponent, index;
 

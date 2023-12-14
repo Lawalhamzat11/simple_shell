@@ -1,26 +1,26 @@
-#include "myshell.h"
+#include "shell.h"
 /**
- * cmd_loop - Continuously prompts user for input using 'getline' until
+ * command_loop - Continuously prompts user for input using 'getline' until
  *                 user enters 'exit' or Ctrl+D (EOF).
  *
- * @buff: Pointer to the buffer for user input.
+ * @buffer: Pointer to the buffer for user input.
  * @line: Pointer to the current line of input.
- * @header: Pointer to the environment lists.
+ * @firster: Pointer to the environment lists.
  *
- * This function reads user input and stores it in 'buff' until 'exit' Ctrl+D.
+ * This function reads user input and stores it in 'buffer' until 'exit' Ctrl+D.
  * Return: 0 on success or 1 if 'realloc' fails.
  */
-int cmd_loop(string buff, string line, lists_t **header)
+int command_loop(strings buffer, strings line, lists_t **firster)
 {
 	int chars_read, oldlen, val = 0;
-	string *token;
+	strings *token;
 	lists_t *temp;
 
-	temp = *header;
+	temp = *firster;
 	for (;;)
 	{
-		clear_buff(buff);
-		chars_read = processline(buff, BUFFSIZE);
+		clear_buff(buffer);
+		chars_read = get_line(buffer, BUFFERSIZE);
 		if (chars_read == -1)
 		{
 			break;
@@ -33,12 +33,12 @@ int cmd_loop(string buff, string line, lists_t **header)
 			val = 1;
 			break;
 		}
-		line = _memcpy(line, buff, chars_read);
+		line = _memcpy(line, buffer, chars_read);
 		if (line[0] != '\0')
 		{
 			token = _strtok(line, ' ');
 			val = custom_commands(token, &temp);
-			if (exit_shell(token) && val != -1)
+			if (shell_exit(token) && val != -1)
 			{
 				free_arr(token);
 				break;

@@ -1,11 +1,11 @@
-#include "myshell.h"
+#include "shell.h"
 /**
  * arr_size - Calculates the size of an array of pointers to strings.
  * @arr: An array of pointers to strings.
  *
  * Return: The size of the array.
  */
-int arr_size(string *arr)
+int arr_size(strings *arr)
 {
 	int index;
 
@@ -22,7 +22,7 @@ int arr_size(string *arr)
  *
  * Return: A pointer to the first of the linked lists.
  */
-lists_t *arr_to_lists(string *arr)
+lists_t *arr_to_lists(strings *arr)
 {
 	lists_t *first;
 	lists_t *new;
@@ -46,14 +46,14 @@ lists_t *arr_to_lists(string *arr)
  *
  * Return: A pointer to an array of pointers.
 */
-string *lists_to_arr(lists_t **first)
+strings *lists_to_arr(lists_t **first)
 {
 	int length, index;
 	lists_t *temp;
-	string *arr;
+	strings *arr;
 
 	length = lists_len(*first);
-	arr = malloc(sizeof(string) * (length + 1));
+	arr = malloc(sizeof(strings) * (length + 1));
 	if (arr == NULL)
 		return (NULL);
 	temp = *first;
@@ -71,7 +71,7 @@ string *lists_to_arr(lists_t **first)
  *
  * Return: No return value.
  */
-void free_arr(string *arr)
+void free_arr(strings *arr)
 {
 	int index, size;
 
